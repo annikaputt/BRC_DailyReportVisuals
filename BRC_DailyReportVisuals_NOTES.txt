@@ -1,0 +1,10 @@
+############################
+# BRC_DailyReportVisuals_NOTES.txt
+# BRC_DailyReportVisuals.Rproj
+# Created August 21, 2015
+# A Putt
+#############################
+
+This project was created to plot daily data from BCH Power Recodrs emails. Each day an email is sent out with an excel attachment that includes daily water levels and flows from the Bridge River power system. These attachments are saved as .csv files in the DailyReportMails folder and the code sources all files and compiles into one data frame. Dates are added and formatted as well. Historic data generally comes in a different format than current data, and I have also appended historic Carpenter and Downton data to the data frame. Plots are created for a couple of the measurements. The code isn't super clean, and there will probably be issues as more years are added or more historic data are added, but for now it's not very long so it should be easy to adjust. Other users are welcome to make changes to the code to plot more variables, improve the plots, etc, but should check with Annika before doing any too major.
+
+To run the code you should be able to open BCR_Plots.R and source. This file also sources the BRC_DailyUpload.R file, which contains the data upload code. Mac users will have to toggle windows() and quartz().

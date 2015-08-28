@@ -45,6 +45,7 @@ levelsplot.carpenter <-
          })
 
 windows()
+#quartz()
 print(levelsplot.carpenter)
 
 png("CarpReservoirElevations.png",width=11,height=8.5,units="in",res=77)
@@ -66,6 +67,7 @@ levelsplot.downton <-
 )
 
 windows()
+#quartz()
 print(levelsplot.downton)
 
 png("DowntonReservoirElevations.png",width=11,height=8.5,units="in",res=77)
@@ -86,6 +88,7 @@ tzflowplot <-
   )
 
 windows()
+#quartz()
 print(tzflowplot)
 
 png("TerzaghiFlow.png",width=11,height=8.5,units="in",res=77)
