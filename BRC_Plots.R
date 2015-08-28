@@ -73,7 +73,7 @@ levelsplot.downton
 dev.off()
 
 ##########
-# MIDDLE BRIDGE RIVER
+# TERZAGHI FLOW
 
 tzflowplot <- 
   xyplot(allData$terzaghiflow~allData$daynumber,groups=as.factor(allData$year),type="l",
