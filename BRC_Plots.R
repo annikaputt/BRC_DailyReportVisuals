@@ -26,7 +26,8 @@ labels <- temp$shortdate
 # If you want to add anything to the plot, such as the date of ko arrival, it is convenient to be able to plot the day number
 # You will need to pull the dates manually and find the day number so that they can be plotted for any year; i.e., the axis is general to all years
 # Create day number vectors for dates of ko in streamwalks and bt up streams in 2014
-vertical <- subset(allData,shortdate %in% c("Aug-19","Sep-03","Sep-16","Oct-01") & year=="2010")$daynumber
+#vertical <- subset(allData,shortdate %in% c("Aug-19","Sep-03","Sep-16","Oct-01") & year=="2010")$daynumber
+vertical <- subset(allData,shortdate %in% c("May-14","Jun-01","Jun-12","Aug-19","Sep-03") & year=="2010")$daynumber
 
 levelsplot.carpenter <- 
   xyplot(allData$carpenterelev~allData$daynumber,groups=as.factor(allData$year),type="l",
@@ -36,11 +37,11 @@ levelsplot.carpenter <-
          col=1:6,lwd=2,
          scales=list(tck=c(1,0),alternating=1,x=list(at=at,labels=labels,axs="i")),
          key=list(corner=c(1,0.05),
-                  lines=list(col=c(1:6,"black","red"),lwd=2,lty=c(1,1,1,1,1,1,2,2)),
-                  text=list(labels=c(levels(as.factor(allData$year)),"2014 KO Sightings","2014 BT Tracked in Tribs"))),
+                  lines=list(col=c(1:6,"black","red","grey","darkblue","blue"),lwd=2,lty=c(1,1,1,1,1,1,2,2,2,2,2)),
+                  text=list(labels=c(levels(as.factor(allData$year)),"2014 RB Migration","2015 VR2W Installation","2015 RB Migration","2014 KO Migration","2015 KO Migration"))),
          panel=function(...) {
-           panel.rect(xleft=c(vertical[1]), xright=c(vertical[4]),ybottom=0, ytop=700,col=c("lightgrey"),border=NA)
-           panel.abline(v=vertical,lty=2,lwd=2,col=c("black","red","black","red"))
+           #panel.rect(xleft=c(vertical[1]), xright=c(vertical[4]),ybottom=0, ytop=700,col=c("lightgrey"),border=NA)
+           panel.abline(v=vertical,lty=2,lwd=2,col=c("black","red","grey","darkblue","blue"))
            panel.xyplot(...)
          })
 
