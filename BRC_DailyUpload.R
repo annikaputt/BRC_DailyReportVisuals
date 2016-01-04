@@ -8,6 +8,7 @@
 # Created August 21, 2015
 # A Putt
 #############################
+library(plyr)
 
 # Upload historic data provided by Dorian Turner (this is only for Downton and Carpenter)
 cr <- read.csv("Carp_2010_Nov52014.csv",head=TRUE)
@@ -76,3 +77,12 @@ allData$fulldate <- as.POSIXct(allData$fulldate)
 allData$shortdate <- format(allData$fulldate,"%b-%d")
 allData$fulldate <- as.POSIXlt(allData$fulldate)
 allData$daynumber <- allData$fulldate$yday # January 1 is 0
+
+# Upload LaJoie stage heights obtained from http://www.sutronwin.com/sutron/
+mbrstage <- read.csv("RawDataFromDorian/LajoieStagesMaster.csv",head=TRUE)
+mbrstage$FullDatePDT <- as.POSIXct(mbrstage$FullDatePDT,tz="America/Los_Angeles")
+# Create daily averages
+mbrdailystage <- ddply(mbrstage, .(Date), summarize, val = mean(StageM)) 
+names(mbrdailystage) <- c("fulldate","mbrstage")
+# Merge the daily data into the allData file
+allData <- merge(allData,mbrdailystage,by="fulldate",all.x=TRUE)

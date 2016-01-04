@@ -34,10 +34,10 @@ levelsplot.carpenter <-
          xlab=list(label=NULL),
          ylab=list(label="Reservoir Elevation (m)"),
          main="Carpenter Reservoir Elevation",
-         col=1:6,lwd=2,
+         col=1:7,lwd=2,
          scales=list(tck=c(1,0),alternating=1,x=list(at=at,labels=labels,axs="i")),
          key=list(corner=c(1,0.05),
-                  lines=list(col=c(1:6,"black","red","grey","darkblue","blue"),lwd=2,lty=c(1,1,1,1,1,1,2,2,2,2,2)),
+                  lines=list(col=c(1:7,"black","red","grey","darkblue","blue"),lwd=2,lty=c(1,1,1,1,1,1,1,2,2,2,2,2)),
                   text=list(labels=c(levels(as.factor(allData$year)),"2014 RB Migration","2015 VR2W Installation","2015 RB Migration","2014 KO Migration","2015 KO Migration"))),
          panel=function(...) {
            #panel.rect(xleft=c(vertical[1]), xright=c(vertical[4]),ybottom=0, ytop=700,col=c("lightgrey"),border=NA)
@@ -61,9 +61,9 @@ levelsplot.downton <-
          xlab=list(label=NULL),
          ylab=list(label="Reservoir Elevation (m)"),
          main="Downton Reservoir Elevation",
-         col=1:6,lwd=2,
+         col=1:7,lwd=2,
          scales=list(tck=c(1,0),alternating=1,x=list(at=at,labels=labels,axs="i")),
-         key=list(corner=c(1,0.05),lines=list(col=c(1:6),lwd=2,lty=c(1,1,1,1,1,1)),
+         key=list(corner=c(1,0.05),lines=list(col=c(1:7),lwd=2,lty=c(1,1,1,1,1,1,1)),
              text=list(labels=c(levels(as.factor(allData$year)))))
 )
 
@@ -79,13 +79,14 @@ dev.off()
 # TERZAGHI FLOW
 
 tzflowplot <- 
-  xyplot(allData$terzaghiflow~allData$daynumber,groups=as.factor(allData$year),type="l",
-         xlab=list(label=NULL),
+  xyplot(subset(allData,terzaghiflow!="NA")$terzaghiflow~subset(allData,terzaghiflow!="NA")$daynumber,
+         groups=as.factor(subset(allData,terzaghiflow!="NA")$year),type="l",
+         xlab=list(label=NULL),col=1:2,lwd=2,
          ylab=list(label="Terzaghi Flow (m3/s)"),
-         main="Terzaghi Flow",lwd=2,col=c(1),
+         main="Terzaghi Flow",
          scales=list(tck=c(1,0),alternating=1,x=list(at=at,labels=labels,axs="i")),
-         key=list(corner=c(1,0.05),lines=list(col=c(1),lwd=2),
-                  text=list(labels=c("2015")))
+         key=list(corner=c(1,0.95),lines=list(col=c(1:2),lwd=2),
+                  text=list(labels=c(levels(factor(subset(allData,terzaghiflow!="NA")$year)))))
   )
 
 windows()
@@ -95,3 +96,17 @@ print(tzflowplot)
 png("TerzaghiFlow.png",width=11,height=8.5,units="in",res=77)
 tzflowplot
 dev.off()
+
+############
+# Middle Bridge River 
+
+mbrstageplot <- 
+  xyplot(subset(allData,mbrstage!="NA")$mbrstage~subset(allData,mbrstage!="NA")$daynumber,
+         groups=as.factor(subset(allData,mbrstage!="NA")$year),type="l",
+         xlab=list(label=NULL),col=1:2,lwd=2,
+         ylab=list(label="MBR Stage (m)"),
+         main="Middle Bridge River Stage Heights",
+         scales=list(tck=c(1,0),alternating=1,x=list(at=at,labels=labels,axs="i")),
+         key=list(corner=c(1,0.95),lines=list(col=c(1:2),lwd=2),
+                  text=list(labels=c(levels(factor(subset(allData,mbrstage!="NA")$year)))))
+  )
