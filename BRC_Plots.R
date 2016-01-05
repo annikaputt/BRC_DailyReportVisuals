@@ -105,8 +105,17 @@ mbrstageplot <-
          groups=as.factor(subset(allData,mbrstage!="NA")$year),type="l",
          xlab=list(label=NULL),col=1:2,lwd=2,
          ylab=list(label="MBR Stage (m)"),
-         main="Middle Bridge River Stage Heights",
+         ylim=c(0,1),xlim=c(0,365),
+         main="Middle Bridge River Stage Heights (Daily Avg)",
          scales=list(tck=c(1,0),alternating=1,x=list(at=at,labels=labels,axs="i")),
          key=list(corner=c(1,0.95),lines=list(col=c(1:2),lwd=2),
                   text=list(labels=c(levels(factor(subset(allData,mbrstage!="NA")$year)))))
   )
+
+windows()
+#quartz()
+print(mbrstageplot)
+
+png("MBRStages.png",width=11,height=8.5,units="in",res=77)
+mbrstageplot
+dev.off()

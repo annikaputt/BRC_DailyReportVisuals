@@ -82,7 +82,14 @@ allData$daynumber <- allData$fulldate$yday # January 1 is 0
 mbrstage <- read.csv("RawDataFromDorian/LajoieStagesMaster.csv",head=TRUE)
 mbrstage$FullDatePDT <- as.POSIXct(mbrstage$FullDatePDT,tz="America/Los_Angeles")
 # Create daily averages
-mbrdailystage <- ddply(mbrstage, .(Date), summarize, val = mean(StageM)) 
-names(mbrdailystage) <- c("fulldate","mbrstage")
+mbrdailystage           <- ddply(mbrstage, .(Date), summarize, val = mean(StageM)) 
+names(mbrdailystage)    <- c("fulldate","mbrstage")
+mbrdailystage$fulldate  <- as.POSIXlt(mbrdailystage$fulldate)
+mbrdailystage$day       <- as.character(substr(mbrdailystage$fulldate,9,10))
+mbrdailystage$year      <- as.character(substr(mbrdailystage$fulldate,1,4))
+mbrdailystage$month     <- as.character(substr(mbrdailystage$fulldate,6,7))
+mbrdailystage$shortdate <- format(mbrdailystage$fulldate,"%b-%d")
+mbrdailystage$daynumber <- mbrdailystage$fulldate$yday
+
 # Merge the daily data into the allData file
-allData <- merge(allData,mbrdailystage,by="fulldate",all.x=TRUE)
+allData <- merge(allData,mbrdailystage,by=c("fulldate","day","year","month","shortdate","daynumber"),all=TRUE)
