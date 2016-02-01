@@ -92,4 +92,4 @@ mbrdailystage$shortdate <- format(mbrdailystage$fulldate,"%b-%d")
 mbrdailystage$daynumber <- mbrdailystage$fulldate$yday
 
 # Merge the daily data into the allData file
-allData <- merge(allData,mbrdailystage,by=c("fulldate","day","year","month","shortdate","daynumber"),all=TRUE)
+allData <- merge(allData,mbrdailystage,by=c("fulldate","day","year","month","shortdate","daynumber"),all.x=TRUE)
